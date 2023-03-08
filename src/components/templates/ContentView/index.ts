@@ -1,5 +1,5 @@
-import { scale } from "react-native-size-matters";
 import styled from "styled-components/native";
+import { scale } from "react-native-size-matters";
 
 export const ContentView = styled.View`
   flex: 1;

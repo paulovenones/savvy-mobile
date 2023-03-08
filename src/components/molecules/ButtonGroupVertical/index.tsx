@@ -1,14 +1,34 @@
 import { Button } from "../../atoms/Button";
 import { StyledCallToActionButton } from "./styles";
 
-export const ButtonGroupVertical = () => {
+interface IButtonGroupVerticalProps {
+  primaryButtonText: string;
+  primaryButtonOnPress: () => void;
+  tertiaryButtonText: string;
+  tertiaryButtonOnPress: () => void;
+}
+
+export const ButtonGroupVertical = ({
+  primaryButtonText,
+  primaryButtonOnPress,
+  tertiaryButtonText,
+  tertiaryButtonOnPress,
+}: IButtonGroupVerticalProps) => {
   return (
     <>
-      <StyledCallToActionButton isFixedSize={true} priority="PRIMARY">
-        Get started
+      <StyledCallToActionButton
+        onPress={primaryButtonOnPress}
+        isFixedSize={true}
+        priority="PRIMARY"
+      >
+        {primaryButtonText}
       </StyledCallToActionButton>
-      <Button isFixedSize={true} priority="TERTIARY">
-        Sign In
+      <Button
+        onPress={tertiaryButtonOnPress}
+        isFixedSize={true}
+        priority="TERTIARY"
+      >
+        {tertiaryButtonText}
       </Button>
     </>
   );

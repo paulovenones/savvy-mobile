@@ -8,8 +8,8 @@ interface IButtonProps {
   priority: typeof OButtonPriorityEnum[keyof typeof OButtonPriorityEnum];
   isEnabled?: boolean;
   isFixedSize?: boolean;
-  shouldShowPlusIcon?: boolean;
   style?: StyleProp<ViewStyle>;
+  onPress: () => void;
 }
 
 export function Button({
@@ -17,8 +17,8 @@ export function Button({
   priority,
   isEnabled = true,
   isFixedSize = false,
-  shouldShowPlusIcon = false,
   style,
+  onPress,
 }: IButtonProps) {
   return (
     <View style={style}>
@@ -27,6 +27,7 @@ export function Button({
         priority={priority}
         activeOpacity={0.7}
         disabled={!isEnabled}
+        onPress={onPress}
       >
         <SytledButtonText>{children}</SytledButtonText>
       </StyledButton>

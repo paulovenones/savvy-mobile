@@ -1,7 +1,5 @@
-// import original module declarations
 import "styled-components";
 
-// and extend them!
 declare module "styled-components" {
   export interface DefaultTheme {
     colors: {
@@ -12,8 +10,16 @@ declare module "styled-components" {
       blue: {
         standard: string;
         light: string;
+        opacity: {
+          10: string;
+        };
       };
-      darkBlue: string;
+      darkBlue: {
+        standard: string;
+        opacity: {
+          80: string;
+        };
+      };
       white: string;
       grey: {
         standard: string;

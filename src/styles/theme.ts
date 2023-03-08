@@ -7,8 +7,16 @@ export default {
     blue: {
       standard: "#0047FF",
       light: "#5EC1F5",
+      opacity: {
+        10: "#0047FF1A",
+      },
     },
-    darkBlue: "#12033A",
+    darkBlue: {
+      standard: "#12033A",
+      opacity: {
+        80: "#12033ACC",
+      },
+    },
     white: "#FFFFFF",
     grey: {
       standard: "#686873",

@@ -2,12 +2,12 @@ import { scale, verticalScale } from "react-native-size-matters";
 import OButtonPriorityEnum from "../../../constants/OButtonPriority";
 import styled from "styled-components/native";
 
-type StyleButtonProps = {
+interface IStyledButtonProps {
   priority: typeof OButtonPriorityEnum[keyof typeof OButtonPriorityEnum];
   isFixedSize: boolean;
-};
+}
 
-export const StyledButton = styled.TouchableOpacity<StyleButtonProps>`
+export const StyledButton = styled.TouchableOpacity<IStyledButtonProps>`
   align-items: center;
   justify-content: center;
 
@@ -17,7 +17,7 @@ export const StyledButton = styled.TouchableOpacity<StyleButtonProps>`
       return theme.colors.blue.standard;
     }
     if (priority === OButtonPriorityEnum.secondary) {
-      return theme.colors.darkBlue;
+      return theme.colors.darkBlue.standard;
     }
     if (priority === OButtonPriorityEnum.tertiary) {
       return "transparent";
