@@ -1,64 +1,64 @@
-import { scale } from "react-native-size-matters";
-import styled from "styled-components/native";
+import { scale, verticalScale } from "react-native-size-matters";
+import { css } from "styled-components/native";
 
 // Headlines
-export const HeadlineOne = styled.Text`
+export const HeadlineOne = css`
   font-size: ${scale(36)}px;
-  line-height: 46px;
+  line-height: ${verticalScale(46)}px;
   font-weight: 700;
   letter-spacing: -1px;
 `;
 
-export const HeadlineTwo = styled.Text`
+export const HeadlineTwo = css`
   font-size: ${scale(24)}px;
-  line-height: 24px;
+  line-height: ${verticalScale(24)}px;
   font-weight: 700;
   letter-spacing: -0.8px;
 `;
 
-export const HeadlineThree = styled.Text`
+export const HeadlineThree = css`
   font-size: ${scale(22)}px;
-  line-height: 32px;
+  line-height: ${verticalScale(32)}px;
   font-weight: 700;
   letter-spacing: -0.4px;
 `;
-export const HeadlineFour = styled.Text`
+export const HeadlineFour = css`
   font-size: ${scale(18)}px;
-  line-height: 28px;
+  line-height: ${verticalScale(28)}px;
   font-weight: 700;
   letter-spacing: -0.4px;
 `;
-export const HeadlineFive = styled.Text`
+export const HeadlineFive = css`
   font-size: ${scale(16)}px;
-  line-height: 26px;
+  line-height: ${verticalScale(26)}px;
   font-weight: 700;
   letter-spacing: -0.36px;
 `;
-export const HeadlineSix = styled.Text`
+export const HeadlineSix = css`
   font-size: ${scale(14)}px;
-  line-height: 24px;
+  line-height: ${verticalScale(24)}px;
   font-weight: 700;
   letter-spacing: -0.3px;
 `;
 
 // Paragraphs
-export const ParagraphOne = styled.Text`
+export const ParagraphOne = css`
   font-size: ${scale(18)}px;
-  line-height: 28px;
+  line-height: ${verticalScale(28)}px;
   font-weight: 500;
   letter-spacing: -0.4px;
 `;
 
-export const ParagraphTwo = styled.Text`
+export const ParagraphTwo = css`
   font-size: ${scale(16)}px;
-  line-height: 26px;
+  line-height: ${verticalScale(26)}px;
   font-weight: 500;
   letter-spacing: -0.36px;
 `;
 
-export const ParagraphThree = styled.Text`
+export const ParagraphThree = css`
   font-size: ${scale(14)}px;
-  line-height: 24px;
+  line-height: ${verticalScale(24)}px;
   font-weight: 500;
   letter-spacing: -0.3px;
 `;

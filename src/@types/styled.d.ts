@@ -17,6 +17,8 @@ declare module "styled-components" {
       darkBlue: {
         standard: string;
         opacity: {
+          10: string;
+          40: string;
           80: string;
         };
       };

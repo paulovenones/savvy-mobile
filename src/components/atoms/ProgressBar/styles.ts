@@ -1,5 +1,5 @@
 import { Animated } from "react-native";
-import { scale, verticalScale } from "react-native-size-matters";
+import { verticalScale } from "react-native-size-matters";
 import styled from "styled-components/native";
 
 interface IStyledProgressBarContainerProps {

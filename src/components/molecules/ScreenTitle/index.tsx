@@ -1,3 +1,5 @@
+import { StyleProp, View, ViewStyle } from "react-native";
+
 import OScreenTitleSize from "../../../constants/OScreenTitleSize";
 import { StyledSubtitle, StyledTitleLarge, StyledTitleMedium } from "./styles";
 
@@ -7,6 +9,7 @@ interface ITitleScreenProps {
   title: string;
   titleSize: ScreenTitleType;
   subtitle?: string;
+  style?: StyleProp<ViewStyle>;
 }
 
 interface IRenderTitleProps {
@@ -29,11 +32,12 @@ export const ScreenTitle = ({
   title,
   titleSize,
   subtitle,
+  style,
 }: ITitleScreenProps) => {
   return (
-    <>
+    <View style={style}>
       {renderTitle({ title, size: titleSize })}
       <StyledSubtitle marginFromTitle={titleSize}>{subtitle}</StyledSubtitle>
-    </>
+    </View>
   );
 };

@@ -1,18 +1,17 @@
 import { ProgressBar } from "../../atoms/ProgressBar";
-import { ScreenTitle } from "../../molecules/ScreenTitle";
-import { StyledFormStepContainer } from "./styles";
+import { StyledFormHeaderContainer, StyledTitle } from "./styles";
 
-export const FormStep = () => {
+export const FormHeader = () => {
   return (
-    <StyledFormStepContainer>
+    <StyledFormHeaderContainer>
       <ProgressBar />
-      <ScreenTitle
+      <StyledTitle
         title="Personal information"
         titleSize="MEDIUM"
         subtitle={
           "We ask for your personal information \n to verify your identity"
         }
       />
-    </StyledFormStepContainer>
+    </StyledFormHeaderContainer>
   );
 };

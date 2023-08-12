@@ -1,6 +1,8 @@
 import styled from "styled-components/native";
-import { ContentView } from "../../components/templates/ContentView";
 
-export const StyledContentView = styled(ContentView)`
+export const StyledContentView = styled.View`
   background-color: ${({ theme }) => theme.colors.darkBlue.standard};
+  flex: 1;
+  align-items: center;
+  justify-content: center;
 `;

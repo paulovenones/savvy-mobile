@@ -17,7 +17,11 @@ export const AppRoutes = () => {
   const isAuthenticated = false;
 
   return (
-    <Navigator screenOptions={{ headerShown: false }}>
+    <Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
       {isAuthenticated ? (
         <></>
       ) : (

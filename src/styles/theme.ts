@@ -14,6 +14,8 @@ export default {
     darkBlue: {
       standard: "#12033A",
       opacity: {
+        10: "#12033A1A",
+        40: "#12033A66",
         80: "#12033ACC",
       },
     },
