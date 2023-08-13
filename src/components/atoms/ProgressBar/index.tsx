@@ -1,25 +1,37 @@
 import { useEffect, useRef } from "react";
-import { Animated, Easing } from "react-native";
+import { Animated, Easing, StyleProp, View, ViewStyle } from "react-native";
 import { scale } from "react-native-size-matters";
 import { StyledProgressBarContainer, StyledProgressBarFill } from "./styles";
 
 const PROGRESS_BAR_WIDTH = scale(88);
 
-export const ProgressBar = () => {
+interface IProgressBarProps {
+  progress?: number;
+  style?: StyleProp<ViewStyle>;
+}
+
+export const ProgressBar = ({ style, progress = 0 }: IProgressBarProps) => {
   const animationProgress = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
+    const newProgress = Math.min(
+      PROGRESS_BAR_WIDTH,
+      PROGRESS_BAR_WIDTH * progress
+    );
+
     Animated.timing(animationProgress, {
-      toValue: PROGRESS_BAR_WIDTH * 0.7,
+      toValue: newProgress,
       easing: Easing.bounce,
-      duration: 800,
+      duration: 500,
       useNativeDriver: false,
     }).start();
-  }, []);
+  }, [progress]);
 
   return (
-    <StyledProgressBarContainer width={PROGRESS_BAR_WIDTH}>
-      <StyledProgressBarFill style={{ width: animationProgress }} />
-    </StyledProgressBarContainer>
+    <View style={style}>
+      <StyledProgressBarContainer width={PROGRESS_BAR_WIDTH}>
+        <StyledProgressBarFill style={{ width: animationProgress }} />
+      </StyledProgressBarContainer>
+    </View>
   );
 };

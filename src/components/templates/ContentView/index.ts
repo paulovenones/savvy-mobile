@@ -1,8 +1,8 @@
 import styled from "styled-components/native";
-import { scale } from "react-native-size-matters";
+import { scale, verticalScale } from "react-native-size-matters";
 
-export const ContentView = styled.SafeAreaView`
+export const ContentView = styled.View`
   flex: 1;
   align-items: center;
-  padding: 0px ${scale(24)}px;
+  padding: ${verticalScale(80)}px ${scale(24)}px;
 `;

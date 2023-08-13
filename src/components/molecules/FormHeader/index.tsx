@@ -1,17 +1,20 @@
-import { ProgressBar } from "../../atoms/ProgressBar";
+import { ScreenTitleSize } from "../ScreenTitle";
 import { StyledFormHeaderContainer, StyledTitle } from "./styles";
 
-export const FormHeader = () => {
+interface IFormHeader {
+  title: string;
+  subtitle?: string;
+  titleSize?: ScreenTitleSize;
+}
+
+export const FormHeader = ({
+  title,
+  subtitle,
+  titleSize = "MEDIUM",
+}: IFormHeader) => {
   return (
     <StyledFormHeaderContainer>
-      <ProgressBar />
-      <StyledTitle
-        title="Personal information"
-        titleSize="MEDIUM"
-        subtitle={
-          "We ask for your personal information \n to verify your identity"
-        }
-      />
+      <StyledTitle title={title} titleSize={titleSize} subtitle={subtitle} />
     </StyledFormHeaderContainer>
   );
 };

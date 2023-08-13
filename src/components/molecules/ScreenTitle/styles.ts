@@ -2,30 +2,26 @@ import styled from "styled-components/native";
 import { verticalScale } from "react-native-size-matters";
 
 import OScreenTitleSize from "../../../constants/OScreenTitleSize";
-import {
-  HeadlineOne,
-  HeadlineTwo,
-  ParagraphThree,
-} from "../../atoms/Typography";
+import { typographyStyles } from "../../atoms/Typography";
 
 interface IStyledSubtitleProps {
-  marginFromTitle: typeof OScreenTitleSize[keyof typeof OScreenTitleSize];
+  marginFromTitle: (typeof OScreenTitleSize)[keyof typeof OScreenTitleSize];
 }
 
 export const StyledTitleLarge = styled.Text`
-  ${HeadlineOne}
+  ${typographyStyles.headlineOne}
   text-align: center;
   color: ${({ theme }) => theme.colors.darkBlue.standard};
 `;
 
 export const StyledTitleMedium = styled.Text`
-  ${HeadlineTwo}
+  ${typographyStyles.headlineTwo}
   text-align: center;
   color: ${({ theme }) => theme.colors.darkBlue.standard};
 `;
 
 export const StyledSubtitle = styled.Text<IStyledSubtitleProps>`
-  ${ParagraphThree}
+  ${typographyStyles.paragraphThree}
   color: ${({ theme }) => theme.colors.darkBlue.opacity[80]};
   margin-top: ${(props) => {
     switch (props.marginFromTitle) {

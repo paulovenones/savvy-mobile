@@ -10,12 +10,12 @@ export const Welcome = () => {
   return (
     <>
       <PageHeadlineWithIcon
-        headlineText={`Easiest way \n to start saving`}
+        headlineText={`Faça valer \n cada centavo`}
         icon="START_INVESTING"
       />
       <ButtonGroupVertical
-        primaryButtonText="Create Account"
-        tertiaryButtonText="Sign In"
+        primaryButtonText="Criar Conta"
+        tertiaryButtonText="Entrar"
         primaryButtonOnPress={() => navigate("signup")}
         tertiaryButtonOnPress={() => {}}
       />

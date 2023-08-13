@@ -18,16 +18,11 @@ export const ButtonGroupVertical = ({
     <>
       <StyledCallToActionButton
         onPress={primaryButtonOnPress}
-        isFixedSize={true}
         priority="PRIMARY"
       >
         {primaryButtonText}
       </StyledCallToActionButton>
-      <Button
-        onPress={tertiaryButtonOnPress}
-        isFixedSize={true}
-        priority="TERTIARY"
-      >
+      <Button onPress={tertiaryButtonOnPress} priority="TERTIARY">
         {tertiaryButtonText}
       </Button>
     </>

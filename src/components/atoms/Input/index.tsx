@@ -3,7 +3,11 @@ import { StyledInput, StyledInputContainer, StyledInputLabel } from "./styles";
 import { Animated } from "react-native";
 import { verticalScale } from "react-native-size-matters";
 
-export const Input = () => {
+interface IInputProps {
+  label: string;
+}
+
+export const Input = ({ label }: IInputProps) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
 
@@ -38,7 +42,7 @@ export const Input = () => {
         isFocused={isFocused}
         style={{ marginTop: labelDistanceFromTop }}
       >
-        Card holder
+        {label}
       </StyledInputLabel>
       <StyledInput
         onChangeText={handleChangeText}

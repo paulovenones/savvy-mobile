@@ -1,7 +1,7 @@
 import { scale, verticalScale } from "react-native-size-matters";
 import styled from "styled-components/native";
-import { ParagraphThree, ParagraphTwo } from "../Typography";
 import { Animated } from "react-native";
+import { typographyStyles } from "../Typography";
 
 interface IStyledInputProps {
   isFocused: boolean;
@@ -31,7 +31,7 @@ export const StyledInputContainer = styled.View<IStyledInputContainerProps>`
 `;
 
 export const StyledInputLabel = styled(Animated.Text)<IStyledInputLabelProps>`
-  ${ParagraphThree}
+  ${typographyStyles.paragraphThree}
   position: absolute;
   left: ${scale(20)}px;
   color: ${({ theme }) => theme.colors.grey.standard};
@@ -40,5 +40,5 @@ export const StyledInputLabel = styled(Animated.Text)<IStyledInputLabelProps>`
 export const StyledInput = styled.TextInput<IStyledInputProps>`
   padding-left: ${scale(20)}px;
   flex: 1;
-  ${ParagraphTwo}
+  ${typographyStyles.paragraphTwo}
 `;

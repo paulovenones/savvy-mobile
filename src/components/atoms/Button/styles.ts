@@ -3,8 +3,8 @@ import OButtonPriorityEnum from "../../../constants/OButtonPriority";
 import styled from "styled-components/native";
 
 interface IStyledButtonProps {
-  priority: typeof OButtonPriorityEnum[keyof typeof OButtonPriorityEnum];
-  isFixedSize: boolean;
+  priority: (typeof OButtonPriorityEnum)[keyof typeof OButtonPriorityEnum];
+  isFullWidth: boolean;
 }
 
 export const StyledButton = styled.TouchableOpacity<IStyledButtonProps>`
@@ -23,7 +23,7 @@ export const StyledButton = styled.TouchableOpacity<IStyledButtonProps>`
       return "transparent";
     }
   }};
-  ${({ isFixedSize }) => (isFixedSize ? `width: ${scale(312)}px` : "")};
+  ${({ isFullWidth }) => (isFullWidth ? `width: ${scale(312)}px` : "")};
   padding: 0px ${verticalScale(24)}px;
 `;
 

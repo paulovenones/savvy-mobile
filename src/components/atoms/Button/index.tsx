@@ -5,9 +5,9 @@ import { StyledButton, SytledButtonText } from "./styles";
 
 interface IButtonProps {
   children: string;
-  priority: typeof OButtonPriorityEnum[keyof typeof OButtonPriorityEnum];
+  priority: (typeof OButtonPriorityEnum)[keyof typeof OButtonPriorityEnum];
   isEnabled?: boolean;
-  isFixedSize?: boolean;
+  isFullWidth?: boolean;
   style?: StyleProp<ViewStyle>;
   onPress: () => void;
 }
@@ -16,14 +16,14 @@ export function Button({
   children,
   priority,
   isEnabled = true,
-  isFixedSize = false,
+  isFullWidth = true,
   style,
   onPress,
 }: IButtonProps) {
   return (
     <View style={style}>
       <StyledButton
-        isFixedSize={isFixedSize}
+        isFullWidth={isFullWidth}
         priority={priority}
         activeOpacity={0.7}
         disabled={!isEnabled}
