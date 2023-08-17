@@ -3,10 +3,6 @@ import styled from "styled-components/native";
 import { Animated } from "react-native";
 import { typographyStyles } from "../Typography";
 
-interface IStyledInputProps {
-  isFocused: boolean;
-}
-
 interface IStyledInputContainerProps {
   isFocused: boolean;
 }
@@ -18,7 +14,7 @@ interface IStyledInputLabelProps {
 
 export const StyledInputContainer = styled.View<IStyledInputContainerProps>`
   border: 1px solid;
-  border-color: ${({ theme, isFocused }) => {
+  border-color: ${({ isFocused, theme }) => {
     if (isFocused) {
       return theme.colors.darkBlue.opacity[40];
     }
@@ -37,7 +33,7 @@ export const StyledInputLabel = styled(Animated.Text)<IStyledInputLabelProps>`
   color: ${({ theme }) => theme.colors.grey.standard};
 `;
 
-export const StyledInput = styled.TextInput<IStyledInputProps>`
+export const StyledInput = styled.TextInput`
   padding-left: ${scale(20)}px;
   flex: 1;
   ${typographyStyles.paragraphTwo}

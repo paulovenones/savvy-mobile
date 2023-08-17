@@ -1,17 +1,29 @@
+# Ignore node.js modules and dependencies
 node_modules/
+./yarn.lock
+
+# Ignore Expo related files and directories
 .expo/
+
+# Ignore build output directories
 dist/
+web-build/
+
+# Ignore debugging files
 npm-debug.*
+
+# Ignore various sensitive files
 *.jks
 *.p8
 *.p12
 *.key
 *.mobileprovision
-*.orig.*
-web-build/
 
-# macOS
+# Ignore backup or original files
+*.orig.*
+
+# macOS system file to ignore
 .DS_Store
 
-# Temporary files created by Metro to check the health of the file watcher
+# Temporary files created by Metro
 .metro-health-check*

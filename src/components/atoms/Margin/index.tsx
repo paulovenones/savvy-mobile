@@ -1,3 +1,4 @@
+import { scale, verticalScale } from "react-native-size-matters";
 import styled from "styled-components/native";
 
 interface IMarginProps {
@@ -10,8 +11,8 @@ interface IMarginProps {
 
 export const Margin = styled.View<IMarginProps>`
   ${({ margin }) => (margin ? `margin: ${margin};` : "")}
-  ${({ mt }) => (mt ? `margin-top: ${mt}px;` : "")}
-  ${({ mr }) => (mr ? `margin-right: ${mr}px;` : "")}
-  ${({ mb }) => (mb ? `margin-bottom: ${mb}px;` : "")}
-  ${({ ml }) => (ml ? `margin-left: ${ml}px;` : "")}
+  ${({ mt }) => (mt ? `margin-top: ${verticalScale(mt)}px;` : "")}
+  ${({ mr }) => (mr ? `margin-right: ${scale(mr)}px;` : "")}
+  ${({ mb }) => (mb ? `margin-bottom: ${verticalScale(mb)}px;` : "")}
+  ${({ ml }) => (ml ? `margin-left: ${scale(ml)}px;` : "")}
 `;

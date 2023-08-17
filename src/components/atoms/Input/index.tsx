@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { StyledInput, StyledInputContainer, StyledInputLabel } from "./styles";
-import { Animated } from "react-native";
+import { Animated, TextInputProps } from "react-native";
 import { verticalScale } from "react-native-size-matters";
 
-interface IInputProps {
+interface IInputProps extends TextInputProps {
   label: string;
 }
 
-export const Input = ({ label }: IInputProps) => {
+export const Input = ({ label, ...rest }: IInputProps) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
 
@@ -45,10 +45,10 @@ export const Input = ({ label }: IInputProps) => {
         {label}
       </StyledInputLabel>
       <StyledInput
+        {...rest}
         onChangeText={handleChangeText}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        isFocused={isFocused}
       />
     </StyledInputContainer>
   );

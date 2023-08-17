@@ -5,11 +5,10 @@ import { ContentView } from "../../components/templates/ContentView";
 import { Input } from "../../components/atoms/Input";
 import { ScreenTitle } from "../../components/molecules/ScreenTitle";
 import { Margin } from "../../components/atoms/Margin";
-import { verticalScale } from "react-native-size-matters";
 import { Typography } from "../../components/atoms/Typography";
 import { useNavigation } from "@react-navigation/native";
-import { StyledSignInLinkText, StyledSignInTextContainer } from "./styles";
-import { TouchableOpacity } from "react-native";
+import { StyledSignInTextContainer } from "./styles";
+import { TouchableLink } from "../../components/atoms/TouchableLink";
 
 export const SignUpScreen = () => {
   const [signUpProgress, setSignUpProgress] = useState(0.08);
@@ -23,11 +22,20 @@ export const SignUpScreen = () => {
   return (
     <ContentView>
       <ProgressBar progress={signUpProgress} />
-      <ScreenTitle title="Vamos começar" titleSize="LARGE" />
-      <Margin mt={verticalScale(98)}>
-        <Input label="Email" />
+      <Margin mt={16}>
+        <ScreenTitle title="Vamos começar" titleSize="LARGE" />
       </Margin>
-      <Margin mt={verticalScale(16)}>
+      <Margin mt={98}>
+        <Input
+          autoCapitalize="none"
+          keyboardType="email-address"
+          autoComplete="email"
+          autoCorrect={false}
+          spellCheck={false}
+          label="Email"
+        />
+      </Margin>
+      <Margin mt={16}>
         <Button
           onPress={() => setSignUpProgress(signUpProgress + 0.25)}
           priority="SECONDARY"
@@ -35,14 +43,10 @@ export const SignUpScreen = () => {
           Próximo
         </Button>
       </Margin>
-      <Margin mt={verticalScale(16)}>
+      <Margin mt={16}>
         <StyledSignInTextContainer>
           <Typography variant="paragraphThree">Já tem uma conta? </Typography>
-          <TouchableOpacity onPress={handlePress}>
-            <StyledSignInLinkText variant="paragraphThree">
-              Entrar
-            </StyledSignInLinkText>
-          </TouchableOpacity>
+          <TouchableLink onPress={handlePress}>Entrar</TouchableLink>
         </StyledSignInTextContainer>
       </Margin>
     </ContentView>
