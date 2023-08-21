@@ -1,6 +1,7 @@
 # Ignore node.js modules and dependencies
 node_modules/
-./yarn.lock
+yarn.lock
+yarn-error.log
 
 # Ignore Expo related files and directories
 .expo/
