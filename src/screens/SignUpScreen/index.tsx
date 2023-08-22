@@ -1,54 +1,60 @@
+import { useForm } from "react-hook-form";
+import { Alert, Text } from "react-native";
+import { MultiStepForm } from "../../components/molecules/MultiStepFrom";
 import { useState } from "react";
-import { Button } from "../../components/atoms/Button";
-import { ProgressBar } from "../../components/atoms/ProgressBar";
-import { ContentView } from "../../components/templates/ContentView";
-import { Input } from "../../components/atoms/Input";
-import { ScreenTitle } from "../../components/molecules/ScreenTitle";
-import { Margin } from "../../components/atoms/Margin";
-import { Typography } from "../../components/atoms/Typography";
-import { useNavigation } from "@react-navigation/native";
-import { StyledSignInTextContainer } from "./styles";
-import { TouchableLink } from "../../components/atoms/TouchableLink";
+import { SignUpFormStepEmail } from "./SignUpFormSteps/SignUpFormStepEmail";
+import { SignUpFormStepCode } from "./SignUpFormSteps/SignUpFormStepCode";
 
 export const SignUpScreen = () => {
-  const [signUpProgress, setSignUpProgress] = useState(0.08);
+  const { control, handleSubmit } = useForm();
+  const onSubmit = (data: any) => {
+    Alert.alert(JSON.stringify(data));
+    console.log(JSON.stringify(data));
+  };
 
-  const navigation = useNavigation();
+  const [formCompletition, setFormCompletion] = useState([
+    false,
+    false,
+    false,
+    false,
+  ]);
 
-  const handlePress = () => {
-    navigation.navigate("home");
+  const completeFormStep = (formStep: number) => {
+    setFormCompletion((prevState) => {
+      const newState = [...prevState];
+      newState[formStep] = true;
+      return newState;
+    });
   };
 
   return (
-    <ContentView>
-      <ProgressBar progress={signUpProgress} />
-      <Margin mt={16}>
-        <ScreenTitle title="Vamos começar" titleSize="LARGE" />
-      </Margin>
-      <Margin mt={98}>
-        <Input
-          autoCapitalize="none"
-          keyboardType="email-address"
-          autoComplete="email"
-          autoCorrect={false}
-          spellCheck={false}
-          label="Email"
-        />
-      </Margin>
-      <Margin mt={16}>
-        <Button
-          onPress={() => setSignUpProgress(signUpProgress + 0.25)}
-          priority="SECONDARY"
-        >
-          Próximo
-        </Button>
-      </Margin>
-      <Margin mt={16}>
-        <StyledSignInTextContainer>
-          <Typography variant="paragraphThree">Já tem uma conta? </Typography>
-          <TouchableLink onPress={handlePress}>Entrar</TouchableLink>
-        </StyledSignInTextContainer>
-      </Margin>
-    </ContentView>
+    <MultiStepForm formCompletition={formCompletition}>
+      <SignUpFormStepEmail
+        control={control}
+        setIsStepCompleted={() => completeFormStep(0)}
+      />
+      <SignUpFormStepCode
+        control={control}
+        setIsStepCompleted={() => completeFormStep(1)}
+      />
+      <>
+        <Text>OIOIOI</Text>
+        <Text>OIOIOI</Text>
+        <Text>OIOIOI</Text>
+        <Text>OIOIOI</Text>
+      </>
+      <>
+        <Text>TCHAU</Text>
+        <Text>TCHAU</Text>
+        <Text>TCHAU</Text>
+        <Text>TCHAU</Text>
+      </>
+      <>
+        <Text>BOA NOITE</Text>
+        <Text>BOA NOITE</Text>
+        <Text>BOA NOITE</Text>
+        <Text>BOA NOITE</Text>
+      </>
+    </MultiStepForm>
   );
 };
