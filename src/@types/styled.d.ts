@@ -1,33 +1,28 @@
-import "styled-components";
+import "styled-components/native";
 
-declare module "styled-components" {
+declare module "styled-components/native" {
   export interface DefaultTheme {
     colors: {
-      background: {
-        default: string;
-        card: string;
-      };
-      blue: {
-        standard: string;
-        light: string;
-        opacity: {
-          10: string;
-        };
-      };
-      darkBlue: {
-        standard: string;
-        opacity: {
-          10: string;
-          40: string;
-          80: string;
-        };
-      };
+      "background-default": string;
+      "background-card": string;
+      blue: string;
+      "blue-light": string;
+      "blue-10": string;
+      "blue-dark": string;
+      "blue-dark-10": string;
+      "blue-dark-40": string;
+      "blue-dark-80": string;
       white: string;
-      grey: {
-        standard: string;
-        light: string;
-        disabled: string;
-      };
+      "white-60": string;
+      grey: string;
+      "grey-light": string;
+      "grey-disabled": string;
+      warning: string;
+      "warning-light": string;
+      green: string;
+      "green-light": string;
+      red: string;
+      "red-light": string;
     };
   }
 }

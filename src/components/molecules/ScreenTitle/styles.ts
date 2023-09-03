@@ -11,18 +11,18 @@ interface IStyledSubtitleProps {
 export const StyledTitleLarge = styled.Text`
   ${typographyStyles.headlineOne}
   text-align: center;
-  color: ${({ theme }) => theme.colors.darkBlue.standard};
+  color: ${({ theme }) => theme.colors["blue-dark"]};
 `;
 
 export const StyledTitleMedium = styled.Text`
   ${typographyStyles.headlineTwo}
   text-align: center;
-  color: ${({ theme }) => theme.colors.darkBlue.standard};
+  color: ${({ theme }) => theme.colors["blue-dark"]};
 `;
 
 export const StyledSubtitle = styled.Text<IStyledSubtitleProps>`
   ${typographyStyles.paragraphThree}
-  color: ${({ theme }) => theme.colors.darkBlue.opacity[80]};
+  color: ${({ theme }) => theme.colors["blue-dark-80"]};
   margin-top: ${(props) => {
     switch (props.marginFromTitle) {
       case OScreenTitleSize.medium:

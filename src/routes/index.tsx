@@ -1,15 +1,17 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { View } from "react-native";
 import styled from "styled-components/native";
-import { Welcome } from "../components/organisms/Welcome";
-import { WelcomeScreen } from "../screens/WelcomeScreen";
+
 import { AppRoutes } from "./app.routes";
+import { useAuthState } from "../contexts/auth";
+import { AuthRoutes } from "./auth.routes";
 
 export function Routes() {
+  const { isAuthenticated } = useAuthState();
+
   return (
     <RootView>
       <NavigationContainer>
-        <AppRoutes />
+        {isAuthenticated ? <AppRoutes /> : <AuthRoutes />}
       </NavigationContainer>
     </RootView>
   );

@@ -1,35 +1,58 @@
+import { ReactNode } from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
 
 import OButtonPriorityEnum from "../../../constants/OButtonPriority";
-import { StyledButton, SytledButtonText } from "./styles";
+import OButtonSize from "../../../constants/OButtonSize";
+
+import { Typography } from "../Typography";
+
+import { StyledButton, StyledButtonContent } from "./styles";
 
 interface IButtonProps {
-  children: string;
+  children: ReactNode;
   priority: (typeof OButtonPriorityEnum)[keyof typeof OButtonPriorityEnum];
-  isEnabled?: boolean;
+  size?: (typeof OButtonSize)[keyof typeof OButtonSize];
   isFullWidth?: boolean;
-  style?: StyleProp<ViewStyle>;
   onPress: () => void;
+  style?: StyleProp<ViewStyle>;
+  disabled?: boolean;
 }
 
 export function Button({
   children,
   priority,
-  isEnabled = true,
   isFullWidth = true,
+  size = "LARGE",
   style,
   onPress,
+  disabled = false,
 }: IButtonProps) {
+  const handleButtonPress = () => {
+    if (disabled) {
+      return;
+    }
+
+    onPress();
+  };
+
   return (
     <View style={style}>
       <StyledButton
         isFullWidth={isFullWidth}
         priority={priority}
         activeOpacity={0.7}
-        disabled={!isEnabled}
-        onPress={onPress}
+        isDisabled={disabled}
+        onPress={handleButtonPress}
       >
-        <SytledButtonText>{children}</SytledButtonText>
+        <StyledButtonContent>
+          {typeof children === "string" ? (
+            <Typography variant="button" color="white">
+              {children}
+            </Typography>
+          ) : (
+            children
+          )}
+        </StyledButtonContent>
       </StyledButton>
     </View>
   );

@@ -1,18 +1,32 @@
-import { TouchableOpacity } from "react-native";
-import { StyledSignInLinkText } from "./styles";
+import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 import { ReactNode } from "react";
+import { ITypographyProps, Typography, typographyStyles } from "../Typography";
+import { DefaultTheme } from "styled-components/native";
 
-interface ITouchableLink {
+interface ITouchableLink extends TouchableOpacityProps {
+  color: keyof DefaultTheme["colors"];
+  children?: ReactNode;
   onPress?: () => void;
-  children: ReactNode;
+  variant?: keyof typeof typographyStyles;
 }
 
-export const TouchableLink = ({ onPress, children }: ITouchableLink) => {
+export const TouchableLink = ({
+  onPress,
+  children,
+  disabled,
+  color,
+  variant = "button",
+  ...rest
+}: ITouchableLink) => {
+  const textColor: ITypographyProps["color"] = disabled
+    ? "grey-disabled"
+    : color;
+
   return (
-    <TouchableOpacity onPress={onPress}>
-      <StyledSignInLinkText variant="paragraphThree">
+    <TouchableOpacity {...rest} disabled={disabled} onPress={onPress}>
+      <Typography color={textColor} variant={variant}>
         {children}
-      </StyledSignInLinkText>
+      </Typography>
     </TouchableOpacity>
   );
 };

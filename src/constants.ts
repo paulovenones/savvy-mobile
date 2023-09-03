@@ -1,0 +1,7 @@
+export const CONSTANTS = {
+  STATUS_CODES: {
+    CONFLICT: 409,
+    UNAUTHORIZED: 401,
+    BAD_REQUEST: 400,
+  },
+};

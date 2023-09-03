@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import { View } from "react-native";
+import React from "react";
 import { ProgressBar } from "../../atoms/ProgressBar";
-import { ContentView } from "../../templates/ContentView";
 import { Margin } from "../../atoms/Margin";
 
 interface IMultiStepFormProps {
@@ -14,14 +12,30 @@ export const MultiStepForm = ({
   formCompletition,
 }: IMultiStepFormProps) => {
   const MIN_STEP_PROGRESS = 0.08;
+  const MIN_LAST_STEP_ADVANCE = 0.15;
+  const DEFAULT_LAST_STEP_PROGRESS = 0.7;
 
   const stepsQuantity = React.Children.count(children);
 
   const currentStep = formCompletition.findIndex((isCompleted) => !isCompleted);
 
-  const calculatedProgress = currentStep / (stepsQuantity - 1) || 0;
+  const isLastStep = currentStep === formCompletition.length - 1;
 
-  const progressPercentage = Math.max(
+  let calculatedProgress = 0;
+
+  if (isLastStep) {
+    const previousStep = currentStep - 1;
+    const previousStepProgress = previousStep / (stepsQuantity - 1) || 0;
+
+    calculatedProgress = Math.max(
+      previousStepProgress + MIN_LAST_STEP_ADVANCE,
+      DEFAULT_LAST_STEP_PROGRESS
+    );
+  } else {
+    calculatedProgress = currentStep / (stepsQuantity - 1) || 0;
+  }
+
+  let progressPercentage = Math.max(
     calculatedProgress + MIN_STEP_PROGRESS,
     MIN_STEP_PROGRESS
   );
@@ -33,11 +47,11 @@ export const MultiStepForm = ({
   };
 
   return (
-    <ContentView>
+    <>
       <Margin mb={16}>
         <ProgressBar progress={progressPercentage} />
       </Margin>
       {renderStepContent()}
-    </ContentView>
+    </>
   );
 };

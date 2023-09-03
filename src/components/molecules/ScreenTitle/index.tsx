@@ -8,7 +8,7 @@ export type ScreenTitleSize =
 
 interface ITitleScreenProps {
   title: string;
-  titleSize: ScreenTitleSize;
+  titleSize?: ScreenTitleSize;
   subtitle?: string;
   style?: StyleProp<ViewStyle>;
 }
@@ -31,7 +31,7 @@ const renderTitle = ({ title, size }: IRenderTitleProps) => {
 
 export const ScreenTitle = ({
   title,
-  titleSize,
+  titleSize = "MEDIUM",
   subtitle,
   style,
 }: ITitleScreenProps) => {

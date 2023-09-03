@@ -1,7 +1,7 @@
 const OButtonPriority = {
-  primary: "PRIMARY",
-  secondary: "SECONDARY",
-  tertiary: "TERTIARY",
+  PRIMARY: "PRIMARY",
+  SECONDARY: "SECONDARY",
+  TERTIARY: "TERTIARY",
 } as const;
 
 export default OButtonPriority;
