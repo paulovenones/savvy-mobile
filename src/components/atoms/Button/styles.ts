@@ -5,6 +5,7 @@ import styled from "styled-components/native";
 interface IStyledButtonProps {
   priority: (typeof OButtonPriorityEnum)[keyof typeof OButtonPriorityEnum];
   isFullWidth: boolean;
+  isDisabled?: boolean;
 }
 
 export const StyledButton = styled.TouchableOpacity<IStyledButtonProps>`
@@ -12,14 +13,18 @@ export const StyledButton = styled.TouchableOpacity<IStyledButtonProps>`
   justify-content: center;
 
   border-radius: 16px;
-  background-color: ${({ theme, priority }) => {
-    if (priority === OButtonPriorityEnum.primary) {
-      return theme.colors.blue.standard;
+  background-color: ${({ theme, priority, isDisabled }) => {
+    if (isDisabled) {
+      return theme.colors["grey-disabled"];
     }
-    if (priority === OButtonPriorityEnum.secondary) {
-      return theme.colors.darkBlue.standard;
+
+    if (priority === OButtonPriorityEnum.PRIMARY) {
+      return theme.colors["blue"];
     }
-    if (priority === OButtonPriorityEnum.tertiary) {
+    if (priority === OButtonPriorityEnum.SECONDARY) {
+      return theme.colors["blue-dark"];
+    }
+    if (priority === OButtonPriorityEnum.TERTIARY) {
       return "transparent";
     }
   }};
@@ -27,11 +32,6 @@ export const StyledButton = styled.TouchableOpacity<IStyledButtonProps>`
   padding: 0px ${verticalScale(24)}px;
 `;
 
-export const SytledButtonText = styled.Text`
-  font-size: ${scale(16)}px;
-  line-height: 26px;
-  font-weight: 700;
-
+export const StyledButtonContent = styled.View`
   padding: 16px 0px;
-  color: ${({ theme }) => theme.colors.white};
 `;

@@ -1,26 +1,34 @@
 import { ReactNode } from "react";
 import { scale, verticalScale } from "react-native-size-matters";
-import { SimpleInterpolation } from "styled-components";
-import styled, { css } from "styled-components/native";
-import { StyleProp, Text, TextStyle } from "react-native";
+import { DefaultTheme, css } from "styled-components/native";
+import { TextStyle } from "react-native";
+import { StyledTypography } from "./styles";
 
-interface ITypographyProps {
+export interface ITypographyProps {
   variant: keyof typeof typographyStyles;
   children: ReactNode;
+  color?: keyof DefaultTheme["colors"];
+  fontWeight?: TextStyle["fontWeight"];
 }
 
 export const Typography: React.FC<ITypographyProps> = ({
   variant,
   children,
+  color,
+  fontWeight,
   ...props
 }) => {
-  const typographyStyle: SimpleInterpolation =
-    typographyStyles[variant] || css``;
-  const StyledText = styled(Text)`
-    ${typographyStyle}
-  `;
+  const typographyStyle = typographyStyles[variant] || css``;
 
-  return <StyledText {...props}>{children}</StyledText>;
+  return (
+    <StyledTypography
+      typographyStyle={typographyStyle}
+      color={color}
+      {...props}
+    >
+      {children}
+    </StyledTypography>
+  );
 };
 
 export const typographyStyles = {
@@ -80,5 +88,18 @@ export const typographyStyles = {
     line-height: ${verticalScale(24)}px;
     font-weight: 500;
     letter-spacing: -0.3px;
+  `,
+
+  chip: css`
+    font-size: ${scale(14)}px;
+    line-height: ${verticalScale(24)}px;
+    font-weight: 500;
+    letter-spacing: -0.3px;
+  `,
+
+  button: css`
+    font-size: ${scale(16)}px;
+    line-height: ${verticalScale(26)}px;
+    font-weight: 700;
   `,
 };

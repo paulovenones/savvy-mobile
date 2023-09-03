@@ -10,11 +10,11 @@ export const StyledProgressBarContainer = styled.View<IStyledProgressBarContaine
   width: ${(props) => props.width}px;
   height: ${verticalScale(8)}px;
   border-radius: 12px;
-  background: ${({ theme }) => theme.colors.blue.opacity[10]};
+  background: ${({ theme }) => theme.colors["blue-10"]};
 `;
 
 export const StyledProgressBarFill = styled(Animated.View)`
   height: ${verticalScale(8)}px;
   border-radius: 12px;
-  background: ${({ theme }) => theme.colors.blue.standard};
+  background: ${({ theme }) => theme.colors["blue"]};
 `;

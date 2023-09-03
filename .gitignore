@@ -9,6 +9,7 @@ yarn-error.log
 # Ignore build output directories
 dist/
 web-build/
+ios
 
 # Ignore debugging files
 npm-debug.*
@@ -19,7 +20,7 @@ npm-debug.*
 *.p12
 *.key
 *.mobileprovision
-
+.env
 # Ignore backup or original files
 *.orig.*
 

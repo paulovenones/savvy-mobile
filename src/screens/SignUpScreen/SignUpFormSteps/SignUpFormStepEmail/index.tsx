@@ -1,26 +1,69 @@
-import { Control, FieldValues } from "react-hook-form";
-import { Button } from "../../../../components/atoms/Button";
-import { Input } from "../../../../components/atoms/Input";
-import { Margin } from "../../../../components/atoms/Margin";
-import { TouchableLink } from "../../../../components/atoms/TouchableLink";
-import { Typography } from "../../../../components/atoms/Typography";
-import { ScreenTitle } from "../../../../components/molecules/ScreenTitle";
-import { StyledSignInTextContainer } from "../../styles";
+import {
+  Control,
+  FieldErrors,
+  FieldNamesMarkedBoolean,
+  UseFormGetValues,
+} from "react-hook-form";
+import axios from "axios";
+import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
+import { api } from "../../../../lib/axios";
+import { CONSTANTS } from "../../../../constants";
+
+import { SignUpFormSchema } from "../..";
+import { Flex } from "../../../../components/atoms/Flex";
+import { Input } from "../../../../components/atoms/Input";
+import { Button } from "../../../../components/atoms/Button";
+import { Margin } from "../../../../components/atoms/Margin";
+import { Typography } from "../../../../components/atoms/Typography";
+import { ScreenTitle } from "../../../../components/molecules/ScreenTitle";
+import { TouchableLink } from "../../../../components/atoms/TouchableLink";
+
 interface ISignUpFormStepEmailProps {
-  control: Control<FieldValues, any>;
+  control: Control<SignUpFormSchema, any>;
   setIsStepCompleted: () => void;
+  getValues: UseFormGetValues<SignUpFormSchema>;
+  errors: FieldErrors<SignUpFormSchema>;
+  dirtyFields: Partial<Readonly<FieldNamesMarkedBoolean<SignUpFormSchema>>>;
 }
 
 export const SignUpFormStepEmail = ({
+  errors,
   control,
   setIsStepCompleted,
+  getValues,
+  dirtyFields,
 }: ISignUpFormStepEmailProps) => {
   const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const isActionButtonDisabled =
+    isLoading || !!errors.email || !dirtyFields.email;
 
   const handleSignInPress = () => {
-    navigation.navigate("home");
+    navigation.navigate("signin");
+  };
+
+  const handleInitSignUp = async () => {
+    setIsLoading(true);
+    try {
+      const email = getValues().email;
+      await api.post("/signup/init", { email });
+      setIsStepCompleted();
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        console.error(err);
+        const statusCode = err.response?.status;
+        if (statusCode === CONSTANTS.STATUS_CODES.CONFLICT) {
+          control.setError("email", {
+            message: "Email já cadastrado na plataforma",
+          });
+        }
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -36,18 +79,28 @@ export const SignUpFormStepEmail = ({
           autoCorrect={false}
           spellCheck={false}
           label="Email"
+          hasError={!!errors.email}
+          errorMessage={errors.email?.message}
         />
       </Margin>
       <Margin mt={16}>
-        <Button onPress={setIsStepCompleted} priority="SECONDARY">
+        <Button
+          disabled={isActionButtonDisabled}
+          onPress={handleInitSignUp}
+          priority="SECONDARY"
+        >
           Enviar código
         </Button>
       </Margin>
       <Margin mt={16}>
-        <StyledSignInTextContainer>
-          <Typography variant="paragraphThree">Já tem uma conta? </Typography>
-          <TouchableLink onPress={handleSignInPress}>Entrar</TouchableLink>
-        </StyledSignInTextContainer>
+        <Flex flexDirection="row" alignItems="center">
+          <Typography variant="paragraphThree">Já tem uma conta?</Typography>
+          <Margin ml={12}>
+            <TouchableLink color="blue" onPress={handleSignInPress}>
+              Entrar
+            </TouchableLink>
+          </Margin>
+        </Flex>
       </Margin>
     </>
   );

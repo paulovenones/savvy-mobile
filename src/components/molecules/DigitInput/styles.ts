@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { typographyStyles } from "../Typography";
+import { typographyStyles } from "../../atoms/Typography";
 import { verticalScale, scale } from "react-native-size-matters";
 import { TextInputProps } from "react-native";
 
@@ -17,9 +17,9 @@ export const StyledCodeInput = styled.TextInput<IStyledCodeInputProps>`
   line-height: 0;
   border-color: ${({ theme, isActive }) => {
     if (isActive) {
-      return theme.colors.darkBlue.opacity[40];
+      return theme.colors["blue-dark-40"];
     }
 
-    return theme.colors.darkBlue.opacity[10];
+    return theme.colors["blue-dark-10"];
   }};
 `;
