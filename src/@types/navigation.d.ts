@@ -5,6 +5,7 @@ export declare global {
       signup: undefined;
       signin: undefined;
       dashboard: undefined;
+      passwordReset: undefined;
     }
   }
 }

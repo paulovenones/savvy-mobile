@@ -9,7 +9,8 @@ export const KeyboardScrollView = ({ children }: IKeyboardScrollViewProps) => {
   return (
     <KeyboardAwareScrollView
       extraHeight={150}
-      contentContainerStyle={{ alignItems: "center" }}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ alignItems: "center", flex: 1 }}
     >
       {children}
     </KeyboardAwareScrollView>

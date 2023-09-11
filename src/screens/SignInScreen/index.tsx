@@ -12,6 +12,7 @@ import NavigateNext from "../../assets/navigateNext.svg";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuthApi, useAuthState } from "../../contexts/auth";
+import { useNavigation } from "@react-navigation/native";
 
 type SignInFormSchema = z.infer<typeof signInFormSchema>;
 
@@ -26,6 +27,10 @@ const signInFormSchema = z.object({
 });
 
 export const SignInScreen = () => {
+  const { navigate } = useNavigation();
+  const { signIn, clearSignInError } = useAuthApi();
+  const { isLoadingSignIn, signInErrorMessage } = useAuthState();
+
   const {
     control,
     formState: { errors, isValid },
@@ -38,9 +43,6 @@ export const SignInScreen = () => {
     reValidateMode: "onChange",
     resolver: zodResolver(signInFormSchema),
   });
-
-  const { signIn, clearSignInError } = useAuthApi();
-  const { isLoadingSignIn, signInErrorMessage } = useAuthState();
 
   const onSubmit: SubmitHandler<SignInFormSchema> = async (data) => {
     await signIn(data);
@@ -64,6 +66,10 @@ export const SignInScreen = () => {
       clearSignInError();
     }
   }, [clearSignInError, signInErrorMessage]);
+
+  const onClickForgotPasswordLink = useCallback(() => {
+    navigate("passwordReset");
+  }, [navigate]);
 
   return (
     <ContentView>
@@ -109,7 +115,11 @@ export const SignInScreen = () => {
       </Margin>
       <Margin mt={24}>
         <Flex flexDirection="row" justifyContent="space-between">
-          <TouchableLink variant="paragraphThree" color="blue-dark">
+          <TouchableLink
+            onPress={onClickForgotPasswordLink}
+            variant="paragraphThree"
+            color="blue-dark"
+          >
             Esqueceu sua senha?
           </TouchableLink>
           <IconButton

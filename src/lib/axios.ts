@@ -5,7 +5,7 @@ import { CONSTANTS } from "../constants";
 const MAX_TOKEN_REFRESH_ATTEMPTS = 3;
 
 export const api = axios.create({
-  baseURL: "http://192.168.0.22:5050",
+  baseURL: "http://192.168.0.176:5050",
   headers: {
     "Content-Type": "application/json",
   },
