@@ -1,4 +1,10 @@
-import { Control, FieldErrors, FieldNamesMarkedBoolean } from "react-hook-form";
+import {
+  Control,
+  FieldErrors,
+  FieldNamesMarkedBoolean,
+  UseFormClearErrors,
+  UseFormTrigger,
+} from "react-hook-form";
 
 import { SignUpFormSchema } from "../..";
 import { Flex } from "../../../../components/atoms/Flex";
@@ -14,6 +20,8 @@ interface ISignUpFormStepNameProps {
   errors: FieldErrors<SignUpFormSchema>;
   setIsStepCompleted: () => void;
   dirtyFields: Partial<Readonly<FieldNamesMarkedBoolean<SignUpFormSchema>>>;
+  trigger: UseFormTrigger<SignUpFormSchema>;
+  clearErrors: UseFormClearErrors<SignUpFormSchema>;
 }
 
 export const SignUpFormStepName = ({
@@ -21,6 +29,8 @@ export const SignUpFormStepName = ({
   errors,
   setIsStepCompleted,
   dirtyFields,
+  trigger,
+  clearErrors,
 }: ISignUpFormStepNameProps) => {
   const isActionButtonDisabled = !!errors.name || !dirtyFields.name;
 
@@ -33,6 +43,8 @@ export const SignUpFormStepName = ({
       <ScreenTitle title="Como podemos te chamar?" />
       <Margin mt={24}>
         <Input
+          trigger={trigger}
+          clearErrors={clearErrors}
           control={control}
           name="name"
           autoComplete="name"

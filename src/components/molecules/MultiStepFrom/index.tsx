@@ -1,6 +1,8 @@
 import React from "react";
 import { ProgressBar } from "../../atoms/ProgressBar";
 import { Margin } from "../../atoms/Margin";
+import { Flex } from "../../atoms/Flex";
+import { KeyboardScrollView } from "../../atoms/KeyboardScrollView";
 
 interface IMultiStepFormProps {
   children: React.ReactNode;
@@ -47,11 +49,11 @@ export const MultiStepForm = ({
   };
 
   return (
-    <>
+    <Flex alignItems="center">
       <Margin mb={16}>
         <ProgressBar progress={progressPercentage} />
       </Margin>
-      {renderStepContent()}
-    </>
+      <KeyboardScrollView>{renderStepContent()}</KeyboardScrollView>
+    </Flex>
   );
 };

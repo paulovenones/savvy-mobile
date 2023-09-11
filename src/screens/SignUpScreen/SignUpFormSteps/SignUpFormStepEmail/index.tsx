@@ -2,7 +2,9 @@ import {
   Control,
   FieldErrors,
   FieldNamesMarkedBoolean,
+  UseFormClearErrors,
   UseFormGetValues,
+  UseFormTrigger,
 } from "react-hook-form";
 import axios from "axios";
 import { useState } from "react";
@@ -26,6 +28,8 @@ interface ISignUpFormStepEmailProps {
   getValues: UseFormGetValues<SignUpFormSchema>;
   errors: FieldErrors<SignUpFormSchema>;
   dirtyFields: Partial<Readonly<FieldNamesMarkedBoolean<SignUpFormSchema>>>;
+  trigger: UseFormTrigger<SignUpFormSchema>;
+  clearErrors: UseFormClearErrors<SignUpFormSchema>;
 }
 
 export const SignUpFormStepEmail = ({
@@ -34,6 +38,8 @@ export const SignUpFormStepEmail = ({
   setIsStepCompleted,
   getValues,
   dirtyFields,
+  trigger,
+  clearErrors,
 }: ISignUpFormStepEmailProps) => {
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
@@ -71,6 +77,8 @@ export const SignUpFormStepEmail = ({
       <ScreenTitle title="Vamos começar" titleSize="LARGE" />
       <Margin mt={98}>
         <Input
+          trigger={trigger}
+          clearErrors={clearErrors}
           control={control}
           name="email"
           autoCapitalize="none"

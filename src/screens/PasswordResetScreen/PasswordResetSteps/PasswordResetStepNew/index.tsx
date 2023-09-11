@@ -3,54 +3,63 @@ import {
   FieldErrors,
   FieldNamesMarkedBoolean,
   UseFormClearErrors,
+  UseFormGetValues,
   UseFormTrigger,
 } from "react-hook-form";
-import { useMemo, useState } from "react";
-
+import { PasswordResetFormSchema } from "../..";
+import { useMemo, useRef, useState } from "react";
 import {
   checkHasMinimumLength,
   checkHasNumber,
   checkHasSpecialCharacter,
   checkHasUppercaseLetter,
 } from "../../../../utils/validate-password-strength";
-
-import { SignUpFormSchema } from "../..";
-import { Chip } from "../../../../components/atoms/Chip";
+import { ScreenTitle } from "../../../../components/molecules/ScreenTitle";
+import { Margin } from "../../../../components/atoms/Margin";
 import { Flex } from "../../../../components/atoms/Flex";
 import { Input } from "../../../../components/atoms/Input";
-import { Margin } from "../../../../components/atoms/Margin";
+import { Chip } from "../../../../components/atoms/Chip";
 import { Button } from "../../../../components/atoms/Button";
-import { ScreenTitle } from "../../../../components/molecules/ScreenTitle";
+import LottieView from "lottie-react-native";
+import successAnimation from "../../../../assets/animations/success.json";
+import { useNavigation } from "@react-navigation/native";
 
-interface ISignUpFormStepPasswordProps {
-  control: Control<SignUpFormSchema, any>;
-  errors: FieldErrors<SignUpFormSchema>;
+interface IPasswordResetStepNewProps {
+  control: Control<PasswordResetFormSchema, any>;
+  trigger: UseFormTrigger<PasswordResetFormSchema>;
+  clearErrors: UseFormClearErrors<PasswordResetFormSchema>;
+  errors: FieldErrors<PasswordResetFormSchema>;
+  dirtyFields: Partial<
+    Readonly<FieldNamesMarkedBoolean<PasswordResetFormSchema>>
+  >;
   setIsStepCompleted: () => void;
-  dirtyFields: Partial<Readonly<FieldNamesMarkedBoolean<SignUpFormSchema>>>;
-  onFinishSignUp: (
+  getValues: UseFormGetValues<PasswordResetFormSchema>;
+  onFinishPasswordReset: (
     e?: React.BaseSyntheticEvent<object, any, any> | undefined
   ) => Promise<void>;
-  trigger: UseFormTrigger<SignUpFormSchema>;
-  clearErrors: UseFormClearErrors<SignUpFormSchema>;
 }
 
-export const SignUpFormStepPassword = ({
+export const PasswordResetStepNew: React.FC<IPasswordResetStepNewProps> = ({
   control,
   errors,
   setIsStepCompleted,
   dirtyFields,
-  onFinishSignUp,
   trigger,
   clearErrors,
-}: ISignUpFormStepPasswordProps) => {
-  const [isProcessingRequest, setIsProcessingRequest] = useState(false);
+  onFinishPasswordReset,
+}) => {
+  const animation = useRef<any>(null);
 
+  const [isProcessingRequest, setIsProcessingRequest] = useState(false);
+  const [passwordResetSuccess, setPasswordResetSuccess] = useState(false);
   const [passwordStrengthErrors, setPasswordStrengthErrors] = useState({
     mininumLength: true,
     specialChar: true,
     uppercaseLetter: true,
     number: true,
   });
+
+  const { navigate } = useNavigation();
 
   const hasPasswordStrengthErrors = useMemo(() => {
     const hasErrors = Object.values(passwordStrengthErrors).includes(true);
@@ -71,8 +80,12 @@ export const SignUpFormStepPassword = ({
   const handleCompleteFormStep = async () => {
     try {
       setIsProcessingRequest(true);
-      await onFinishSignUp();
-      setIsStepCompleted();
+      await onFinishPasswordReset();
+      setPasswordResetSuccess(true);
+      setTimeout(() => {
+        navigate("signin");
+        setIsStepCompleted();
+      }, 2000);
     } catch (e) {
     } finally {
       setIsProcessingRequest(false);
@@ -95,11 +108,28 @@ export const SignUpFormStepPassword = ({
     setPasswordStrengthErrors(newPasswordStrengthErrors);
   };
 
+  if (passwordResetSuccess) {
+    return (
+      <Flex alignItems="center" justifyContent="center" flex={1}>
+        <LottieView
+          autoPlay
+          loop={false}
+          ref={animation}
+          style={{
+            width: 200,
+            height: 200,
+          }}
+          source={successAnimation}
+        />
+      </Flex>
+    );
+  }
+
   return (
-    <>
+    <Flex>
       <ScreenTitle
         title="Quase lá!"
-        subtitle="Para finalizar, escolha uma senha"
+        subtitle="Para finalizar, escolha uma nova senha"
       />
       <Margin mt={24}>
         <Flex>
@@ -180,11 +210,11 @@ export const SignUpFormStepPassword = ({
               disabled={isActionButtonDisabled}
               onPress={handleCompleteFormStep}
             >
-              Finalizar cadastro
+              Redefinir senha
             </Button>
           </Flex>
         </Margin>
       </Margin>
-    </>
+    </Flex>
   );
 };

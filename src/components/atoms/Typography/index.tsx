@@ -14,7 +14,7 @@ export interface ITypographyProps {
 export const Typography: React.FC<ITypographyProps> = ({
   variant,
   children,
-  color,
+  color = "blue-dark-80",
   fontWeight,
   ...props
 }) => {

@@ -12,7 +12,6 @@ import {
   checkIsPasswordTooLarge,
   checkHasRepeatedChars,
 } from "../../utils/validate-password-strength";
-import { Flex } from "../../components/atoms/Flex";
 import { getCalendars } from "expo-localization";
 import { api } from "../../lib/axios";
 import { useAuthApi } from "../../contexts/auth";
@@ -66,9 +65,10 @@ export const SignUpScreen = () => {
     watch,
     getValues,
     setError,
+    trigger,
     formState: { errors, dirtyFields },
   } = useForm<SignUpFormSchema>({
-    mode: "all",
+    mode: "onBlur",
     reValidateMode: "onChange",
     resolver: zodResolver(signUpFormSchema),
   });
@@ -80,7 +80,7 @@ export const SignUpScreen = () => {
     false,
     false,
   ]);
-  const [signUpToken, setSignUpToken] = useState(undefined);
+  const [signUpToken, setSignUpToken] = useState<string | null>(null);
 
   const completeFormStep = (formStep: number) => {
     setFormCompletion((prevState) => {
@@ -132,35 +132,39 @@ export const SignUpScreen = () => {
 
   return (
     <ContentView>
-      <Flex style={{ alignItems: "center" }}>
-        <MultiStepForm formCompletition={formCompletition}>
-          <SignUpFormStepEmail
-            getValues={getValues}
-            errors={errors}
-            control={control}
-            setIsStepCompleted={() => completeFormStep(0)}
-            dirtyFields={dirtyFields}
-          />
-          <SignUpFormStepCode
-            getValues={getValues}
-            storeSignUpToken={setSignUpToken}
-            setIsStepCompleted={() => completeFormStep(1)}
-          />
-          <SignUpFormStepName
-            setIsStepCompleted={() => completeFormStep(2)}
-            control={control}
-            errors={errors}
-            dirtyFields={dirtyFields}
-          />
-          <SignUpFormStepPassword
-            setIsStepCompleted={() => completeFormStep(3)}
-            control={control}
-            errors={errors}
-            dirtyFields={dirtyFields}
-            onFinishSignUp={handleSubmit(onSubmit)}
-          />
-        </MultiStepForm>
-      </Flex>
+      <MultiStepForm formCompletition={formCompletition}>
+        <SignUpFormStepEmail
+          getValues={getValues}
+          errors={errors}
+          control={control}
+          setIsStepCompleted={() => completeFormStep(0)}
+          dirtyFields={dirtyFields}
+          trigger={trigger}
+          clearErrors={clearErrors}
+        />
+        <SignUpFormStepCode
+          getValues={getValues}
+          storeSignUpToken={setSignUpToken}
+          setIsStepCompleted={() => completeFormStep(1)}
+        />
+        <SignUpFormStepName
+          setIsStepCompleted={() => completeFormStep(2)}
+          control={control}
+          errors={errors}
+          dirtyFields={dirtyFields}
+          trigger={trigger}
+          clearErrors={clearErrors}
+        />
+        <SignUpFormStepPassword
+          setIsStepCompleted={() => completeFormStep(3)}
+          control={control}
+          errors={errors}
+          dirtyFields={dirtyFields}
+          onFinishSignUp={handleSubmit(onSubmit)}
+          trigger={trigger}
+          clearErrors={clearErrors}
+        />
+      </MultiStepForm>
     </ContentView>
   );
 };

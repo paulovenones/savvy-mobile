@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
 import { UseFormGetValues } from "react-hook-form";
 
 import { api } from "../../../../lib/axios";
@@ -11,14 +10,13 @@ import { Margin } from "../../../../components/atoms/Margin";
 import { DigitInput } from "../../../../components/molecules/DigitInput";
 import { ScreenTitle } from "../../../../components/molecules/ScreenTitle";
 import { TouchableLink } from "../../../../components/atoms/TouchableLink";
+import { TwoStepVerification } from "../../../../components/organisms/TwoStepVerification";
 
 interface ISignUpFormStepCode {
   setIsStepCompleted: () => void;
   getValues: UseFormGetValues<SignUpFormSchema>;
-  storeSignUpToken: React.Dispatch<React.SetStateAction<undefined>>;
+  storeSignUpToken: React.Dispatch<React.SetStateAction<string | null>>;
 }
-
-const RESEND_CODE_SECONDS_INTERVAL = 60;
 
 export const SignUpFormStepCode = ({
   getValues,
@@ -45,37 +43,14 @@ export const SignUpFormStepCode = ({
         if (statusCode === CONSTANTS.STATUS_CODES.BAD_REQUEST) {
           return "Código inválido";
         }
+        console.error(err);
       }
+      console.error(err);
     }
   };
-
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [countdown, setCountdown] = useState(0);
-
-  const startCountdown = () => {
-    setIsButtonDisabled(true);
-    setCountdown(RESEND_CODE_SECONDS_INTERVAL);
-  };
-
-  useEffect(() => {
-    let intervalId: NodeJS.Timeout;
-
-    if (countdown > 0) {
-      intervalId = setInterval(() => {
-        setCountdown((prevCountdown) => prevCountdown - 1);
-      }, 1000);
-    } else {
-      setIsButtonDisabled(false);
-    }
-
-    return () => clearInterval(intervalId);
-  }, [countdown]);
 
   const onPressResendButton = async () => {
-    if (!isButtonDisabled) {
-      startCountdown();
-      await api.post("/signup/init", { email });
-    }
+    await api.post("/signup/init", { email });
   };
 
   return (
@@ -85,16 +60,12 @@ export const SignUpFormStepCode = ({
         titleSize="MEDIUM"
         subtitle={`Código enviado para ${maskedEmail}`}
       />
-      <Margin mt={72} mb={16}>
-        <DigitInput onComplete={onCompletePinTyping} />
+      <Margin mt={72}>
+        <TwoStepVerification
+          handlResendClick={onPressResendButton}
+          handleCompletePinTyping={onCompletePinTyping}
+        />
       </Margin>
-      <TouchableLink
-        color="blue"
-        disabled={isButtonDisabled}
-        onPress={onPressResendButton}
-      >
-        {isButtonDisabled ? `Reenviar (${countdown}s)` : "Reenviar"}
-      </TouchableLink>
     </>
   );
 };
